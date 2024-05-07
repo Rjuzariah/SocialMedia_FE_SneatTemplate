@@ -23,7 +23,6 @@ const isPasswordVisible = ref(false)
 
 const registerAccount = async () => {
   const response = await register(form.value)
-  console.log(response)
   if (response.status == 200) {
     router.push({path: 'login'})
   } else {

@@ -1,14 +1,35 @@
 <script setup>
 import AuthProvider from '@/views/pages/authentication/AuthProvider.vue'
 import logo from '@images/logo.svg?raw'
+import { login } from '@/services/authentication_services';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 const form = ref({
   email: '',
   password: '',
   remember: false,
 })
+let errorDetails = ref({
+  status: '',
+  title: '',
+  errorList: ''
+})
 
 const isPasswordVisible = ref(false)
+
+const loginToSystem = async () => {
+  const response = await login(form.value)
+  if (response.status == 200) {
+    router.push({path: 'dashboard'})
+  } else {
+    errorDetails.value.status = response.status
+    errorDetails.value.title= response.title
+    errorDetails.value.errorList= response.errorList
+  }
+  
+}
 </script>
 
 <template>
@@ -84,10 +105,20 @@ const isPasswordVisible = ref(false)
               <!-- login button -->
               <VBtn
                 block
-                type="submit"
+                @click="loginToSystem"
               >
                 Login
               </VBtn>
+            </VCol>
+
+            <VCol v-if="errorDetails.status !== ''" cols="12">
+              <v-alert
+                color="error"
+                icon="$error"
+                :title="errorDetails.title"
+              >
+              {{ errorDetails.errorList }}
+            </v-alert>
             </VCol>
 
             <!-- create account -->
@@ -102,23 +133,6 @@ const isPasswordVisible = ref(false)
               >
                 Create an account
               </RouterLink>
-            </VCol>
-
-            <VCol
-              cols="12"
-              class="d-flex align-center"
-            >
-              <VDivider />
-              <span class="mx-4">or</span>
-              <VDivider />
-            </VCol>
-
-            <!-- auth providers -->
-            <VCol
-              cols="12"
-              class="text-center"
-            >
-              <AuthProvider />
             </VCol>
           </VRow>
         </VForm>

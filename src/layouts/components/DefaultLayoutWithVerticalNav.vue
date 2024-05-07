@@ -75,6 +75,13 @@ import UserProfile from '@/layouts/components/UserProfile.vue'
           to: '/account-settings',
         }"
       />
+      <VerticalNavLink
+        :item="{
+          title: 'Manage Users',
+          icon: 'mdi-account-cog-outline',
+          to: '/manage-users',
+        }"
+      />
 
       <!-- 👉 Pages -->
       <VerticalNavSectionTitle
