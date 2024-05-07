@@ -1,15 +1,38 @@
 <script setup>
-import AuthProvider from '@/views/pages/authentication/AuthProvider.vue'
-import logo from '@images/logo.svg?raw'
+import { register } from '@/services/authentication_services';
+import AuthProvider from '@/views/pages/authentication/AuthProvider.vue';
+import logo from '@images/logo.svg?raw';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
 
 const form = ref({
-  username: '',
   email: '',
-  password: '',
-  privacyPolicies: false,
+  password: ''
+})
+
+
+let errorDetails = ref({
+  status: '',
+  title: '',
+  errorList: ''
 })
 
 const isPasswordVisible = ref(false)
+
+const registerAccount = async () => {
+  const response = await register(form.value)
+  console.log(response)
+  if (response.status == 200) {
+    router.push({path: 'login'})
+  } else {
+    errorDetails.value.status = response.status
+    errorDetails.value.title= response.title
+    errorDetails.value.errorList= response.errorList
+  }
+  
+}
 </script>
 
 <template>
@@ -45,15 +68,6 @@ const isPasswordVisible = ref(false)
       <VCardText>
         <VForm @submit.prevent="$router.push('/')">
           <VRow>
-            <!-- Username -->
-            <VCol cols="12">
-              <VTextField
-                v-model="form.username"
-                autofocus
-                label="Username"
-                placeholder="Johndoe"
-              />
-            </VCol>
             <!-- email -->
             <VCol cols="12">
               <VTextField
@@ -74,30 +88,25 @@ const isPasswordVisible = ref(false)
                 :append-inner-icon="isPasswordVisible ? 'bx-hide' : 'bx-show'"
                 @click:append-inner="isPasswordVisible = !isPasswordVisible"
               />
-              <div class="d-flex align-center mt-1 mb-4">
-                <VCheckbox
-                  id="privacy-policy"
-                  v-model="form.privacyPolicies"
-                  inline
-                />
-                <VLabel
-                  for="privacy-policy"
-                  style="opacity: 1;"
-                >
-                  <span class="me-1">I agree to</span>
-                  <a
-                    href="javascript:void(0)"
-                    class="text-primary"
-                  >privacy policy & terms</a>
-                </VLabel>
-              </div>
+            </VCol>
 
+            <VCol cols="12">
               <VBtn
                 block
-                type="submit"
+                @click="registerAccount"
               >
                 Sign up
               </VBtn>
+            </VCol>
+
+            <VCol v-if="errorDetails.status !== ''" cols="12">
+              <v-alert
+                color="error"
+                icon="$error"
+                :title="errorDetails.title"
+              >
+              {{ errorDetails.errorList }}
+            </v-alert>
             </VCol>
 
             <!-- login instead -->
@@ -113,23 +122,7 @@ const isPasswordVisible = ref(false)
                 Sign in instead
               </RouterLink>
             </VCol>
-
-            <VCol
-              cols="12"
-              class="d-flex align-center"
-            >
-              <VDivider />
-              <span class="mx-4">or</span>
-              <VDivider />
-            </VCol>
-
-            <!-- auth providers -->
-            <VCol
-              cols="12"
-              class="text-center"
-            >
-              <AuthProvider />
-            </VCol>
+            
           </VRow>
         </VForm>
       </VCardText>
