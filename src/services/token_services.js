@@ -44,7 +44,7 @@ const TokenService = {
     // Set silent timer to retrieve new refresh token
     this.removeRefreshTokenRotationTimer()
     localStorage.setItem(REFRESH_TOKEN_ROTATION_TIMER, setTimeout(async () => {
-      await store.dispatch('auth/refreshToken')
+      // await store.dispatch('auth/refreshToken')
     }, this.getRefreshTokenRotationPeriodInMilliseconds()))
   },
 

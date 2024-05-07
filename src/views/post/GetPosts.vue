@@ -1,5 +1,5 @@
 <script setup>
-
+import avatar1 from '@images/avatars/avatar-1.png'
 const props = defineProps({
   postList : Array
 });
@@ -34,11 +34,16 @@ const sortedPostList = computed(() => {
         order-sm="1"
       >
         <VCardItem v-for="(post, index) in sortedPostList">
+          <VAvatar
+            size="75"
+            class="avatar-center"
+            :image="avatar1"
+          />
           <VCardTitle class="text-md-h5 text-primary">
-            {{ post.description }}
+            {{ post.ownerId }}
           </VCardTitle>
           <VCardText>
-            {{ post.createdDateTime }}
+            {{ post.description }}
           </VCardText>
         </VCardItem>
 
