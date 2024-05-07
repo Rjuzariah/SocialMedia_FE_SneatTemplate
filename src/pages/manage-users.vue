@@ -1,35 +1,36 @@
 <script setup>
-import { createPost, getAllPost } from '@/services/post_services';
-import CreatePost from '@/views/post/CreatePost.vue';
-import GetPosts from '@/views/post/GetPosts.vue';
+import { getAllUsers } from '@/services/user_management_services';
 import { onMounted } from 'vue';
 
-var postList = ref([]);
+var users = ref([]);
 onMounted(async () => {
-  postList.value = await getAllPost()
+  users.value = await getAllUsers()
 
 });
-
-const postSomething = async (description) => {
-  const response = await createPost(description)
-  console.log(response)
-  postList.value.push(response)
-  console.log(postList.value);
-}
-
 
 
 </script>
 
 <template>
-  <VRow>
-
+  <VRow v-for="user in users">
     <VCol
       cols="12"
+      sm="12"
       md="12"
     >
-      <CreatePost @createPost="postSomething" />
-      <GetPosts :postList="postList"/>
+      <VCard>
+        <VCardItem>
+          <VCardTitle>{{ user.userName }}</VCardTitle>
+          <v-btn  small color="primary" @click="editItem">
+      <v-icon left>mdi-pencil</v-icon> Edit
+    </v-btn>
+
+    <!-- Delete button with delete icon -->
+    <v-btn small color="error" @click="deleteItem">
+      <v-icon left>mdi-delete</v-icon> Delete
+    </v-btn>
+        </VCardItem>
+      </VCard>
     </VCol>
 
   </VRow>
