@@ -16,7 +16,6 @@ import { createApp } from 'vue'
 loadFonts()
 
 if (TokenService.getToken()) {
-    console.log('aaa')
     ApiService.setHeader()
     // ApiService.mount401Interceptor()
   }

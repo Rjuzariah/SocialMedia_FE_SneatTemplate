@@ -3,14 +3,14 @@ import { createRouter, createWebHistory } from 'vue-router'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    { path: '/', redirect: '/dashboard' },
+    { path: '/', redirect: '/post' },
     {
       path: '/',
       component: () => import('../layouts/default.vue'),
       children: [
         {
-          path: 'dashboard',
-          component: () => import('../pages/dashboard.vue'),
+          path: 'post',
+          component: () => import('../pages/post.vue'),
         },
         {
           path: 'account-settings',
@@ -24,26 +24,6 @@ const router = createRouter({
           path: 'edit-user/:userId',
           component: () => import('../pages/edit-user.vue'),
           props: true
-        },
-        {
-          path: 'typography',
-          component: () => import('../pages/typography.vue'),
-        },
-        {
-          path: 'icons',
-          component: () => import('../pages/icons.vue'),
-        },
-        {
-          path: 'cards',
-          component: () => import('../pages/cards.vue'),
-        },
-        {
-          path: 'tables',
-          component: () => import('../pages/tables.vue'),
-        },
-        {
-          path: 'form-layouts',
-          component: () => import('../pages/form-layouts.vue'),
         },
       ],
     },
