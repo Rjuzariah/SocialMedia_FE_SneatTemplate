@@ -2,11 +2,19 @@
 import { getAllUsers } from '@/services/user_management_services';
 import { onMounted } from 'vue';
 
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
 var users = ref([]);
 onMounted(async () => {
   users.value = await getAllUsers()
 
 });
+
+const goToEditUserPage = (user_id) => {
+  router.push({ path: `/edit-user/${user_id}` });
+}
 
 
 </script>
@@ -21,7 +29,7 @@ onMounted(async () => {
       <VCard>
         <VCardItem>
           <VCardTitle>{{ user.userName }}</VCardTitle>
-          <v-btn  small color="primary" @click="editItem">
+          <v-btn  small color="primary" @click="goToEditUserPage(user.id)">
       <v-icon left>mdi-pencil</v-icon> Edit
     </v-btn>
 

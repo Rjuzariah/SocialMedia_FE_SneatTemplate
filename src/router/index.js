@@ -21,6 +21,11 @@ const router = createRouter({
           component: () => import('../pages/manage-users.vue'),
         },
         {
+          path: 'edit-user/:userId',
+          component: () => import('../pages/edit-user.vue'),
+          props: true
+        },
+        {
           path: 'typography',
           component: () => import('../pages/typography.vue'),
         },
