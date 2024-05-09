@@ -12,4 +12,10 @@ export async function createPost(description) {
       });
     return response.data
 }
+
+export async function CountNumberOfPost(description) {
+    const response = await axios.get('https://localhost:7277/api/Posts/CountNumberOfPost');
+    return response.data
+}
+
   
