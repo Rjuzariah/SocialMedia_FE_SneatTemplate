@@ -10,8 +10,13 @@ export async function getUserbyId(user_id) {
     return response.data
 }
 
+export async function getLoginUser(user_id) {
+    const response = await axios.get('https://localhost:7277/api/Users/GetLoginUser/');
+    return response.data
+}
+
 export async function createUser(data) {
-    const response = await axios.post('https://localhost:7277/api/Users', {
+    const response = await axios.post('https://localhost:7277/api//Users', {
         // Specify the data to be sent in the request body
         userName: data.userName,
         email: data.email,
