@@ -1,5 +1,5 @@
 <script setup>
-import avatar1 from '@images/avatars/avatar-1.png'
+import avatar1 from '@images/avatars/avatar-1.png';
 const props = defineProps({
   postList : Array
 });
@@ -25,41 +25,35 @@ const sortedPostList = computed(() => {
 </script>
 
 <template>
-  <VCard class="text-center text-sm-start">
-    <VRow no-gutters>
+  
+      <VRow v-for="(post, index) in sortedPostList">
       <VCol
         cols="12"
-        sm="8"
-        order="2"
-        order-sm="1"
+        sm="12"
+        xs="12"
       >
-        <VCardItem v-for="(post, index) in sortedPostList">
-          <VAvatar
+      <VCard class="text-center text-sm-start" >
+        <VCardItem>
+          <VRow>
+          <VCol cols="2" sm="2" xs="2"><VAvatar
             size="75"
             class="avatar-center"
             :image="avatar1"
-          />
-          <VCardTitle class="text-md-h5 text-primary">
-            {{ post.ownerId }}
-          </VCardTitle>
-          <VCardText>
-            {{ post.description }}
-          </VCardText>
+          /></VCol>
+          <VCol cols="10" sm="10" xs="10">
+            <VRow>
+              <VCol cols="12"><VCardTitle>{{ post.ownerName }}</VCardTitle></VCol>
+              <VCol cols="12">{{ post.description }}</VCol>
+              <VCol cols="12"><span class="text-caption">{{ post.createdDateTime }}</span></VCol>
+            </VRow>
+          </VCol>
+        </VRow>
         </VCardItem>
-
+      </VCard>
         
       </VCol>
-
-      <VCol
-        cols="12"
-        sm="4"
-        order="1"
-        order-sm="2"
-        class="text-center"
-      >
-      </VCol>
     </VRow>
-  </VCard>
+  
 </template>
 
 <style lang="scss" scoped>

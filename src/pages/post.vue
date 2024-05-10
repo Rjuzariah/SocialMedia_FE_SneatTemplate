@@ -6,17 +6,42 @@ import { onMounted } from 'vue';
 
 var postList = ref([]);
 onMounted(async () => {
-  postList.value = await getAllPost()
+  const response = await getAllPost()
+  if(response.status === 200) {
+    postList.value = response.data
+  } else {
+    if (response?.status === 401 || response.status === 0)
+    {
+      snackbar.value.show = true;
+    } else {
+      snackbar.value.show = true;
+      snackbar.value.message = response.title;
+    }
+  }
 
 });
 
 const postSomething = async (description) => {
   const response = await createPost(description)
-  console.log(response)
-  postList.value.push(response)
-  console.log(postList.value);
+  if(response.status === 200) {
+    postList.value.push(response.data)
+  } else {
+    if (response?.status === 401 || response.status === 0)
+    {
+      snackbar.value.show = true;
+    } else {
+      snackbar.value.show = true;
+      snackbar.value.message = response.title;
+    }
+  }
 }
 
+var snackbar = ref({
+  show:false,
+  timeout:6000,
+  color:"danger",
+  message:"Unauthorize"
+})
 
 
 </script>
@@ -33,4 +58,7 @@ const postSomething = async (description) => {
     </VCol>
 
   </VRow>
+  <v-snackbar v-model="snackbar.show" :timeout="snackbar.timeout" :color="snackbar.color" top>
+      {{ snackbar.message }}
+    </v-snackbar>
 </template>

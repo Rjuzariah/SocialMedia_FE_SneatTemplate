@@ -21,13 +21,20 @@ const router = createRouter({
           component: () => import('../pages/account-settings.vue'),
         },
         {
-          path: 'manage-users',
-          component: () => import('../pages/manage-users.vue'),
+          path: 'list-user',
+          component: () => import('../pages/list-user.vue'),
+        },
+        {
+          path: 'create-user',
+          component: () => import('../pages/create-edit-user.vue'),
+          props: {
+            contextType:"create"
+          },
         },
         {
           path: 'edit-user/:userId',
-          component: () => import('../pages/edit-user.vue'),
-          props: true
+          component: () => import('../pages/create-edit-user.vue'),
+          props: true,
         },
       ],
     },
@@ -38,10 +45,6 @@ const router = createRouter({
         {
           path: 'login',
           component: () => import('../pages/login.vue'),
-        },
-        {
-          path: 'register',
-          component: () => import('../pages/register.vue'),
         },
         {
           path: '/:pathMatch(.*)*',

@@ -57,16 +57,9 @@ import UserProfile from '@/layouts/components/UserProfile.vue'
       />
       <VerticalNavLink
         :item="{
-          title: 'Account Settings',
-          icon: 'mdi-account-cog-outline',
-          to: '/account-settings',
-        }"
-      />
-      <VerticalNavLink
-        :item="{
           title: 'Manage Users',
           icon: 'mdi-account-cog-outline',
-          to: '/manage-users',
+          to: '/list-user',
         }"
       />
     </template>

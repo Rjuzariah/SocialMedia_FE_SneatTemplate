@@ -1,16 +1,51 @@
 import axios from 'axios';
 
 export async function getAllPost() {
-    const response = await axios.get('https://localhost:7277/api/Posts');
-    return response.data
+    try {
+        const response = await axios.get('https://localhost:7277/api/Posts');
+        return response
+
+    } catch (error) {
+        if (error.response) {
+            return {
+                'status': error.response.data.status,
+                'title': error.response.data.title,
+                'errorList': error.response.data.errors,
+            }
+          } else {
+            // Something happened in setting up the request that triggered an error
+            return {
+                'status': 0,
+                'title': "Authentication Fail",
+                'errorList': [],
+            }
+          }
+    }
 }
 
 export async function createPost(description) {
-    const response = await axios.post('https://localhost:7277/api/Posts', {
+    try {
+        const response = await axios.post('https://localhost:7277/api/Posts', {
         // Specify the data to be sent in the request body
-        description: description,
-      });
-    return response.data
+            description: description,
+        });
+        return response
+    } catch (error) {
+        if (error.response) {
+            return {
+                'status': error.response.data.status,
+                'title': error.response.data.title,
+                'errorList': error.response.data.errors,
+            }
+          } else {
+            // Something happened in setting up the request that triggered an error
+            return {
+                'status': 0,
+                'title': "Authentication Fail",
+                'errorList': [],
+            }
+          }
+    }
 }
 
 export async function CountNumberOfPost(description) {
