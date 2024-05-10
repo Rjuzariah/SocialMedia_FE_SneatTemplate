@@ -17,7 +17,7 @@ export async function createUser(data) {
         email: data.email,
         password: data.password || "",
         postLimitNumber: data.postLimitNumber,
-        roleIds: data.roleIds
+        roles: data.roles
       });
     return response
 }
@@ -30,7 +30,7 @@ export async function editUser(data) {
         email: data.email,
         password: data.password || "",
         postLimitNumber: data.postLimitNumber,
-        roleIds: data.roleIds
+        roles: data.roles
       });
     return response
 }

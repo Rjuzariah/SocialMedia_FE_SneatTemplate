@@ -16,7 +16,7 @@ let userInfo = ref({
   email: null,
   password: null,
   postLimitNumber: null,
-  roleIds: []
+  roles: []
 });
 let roles = ref([]);
 const isPasswordVisible = ref(false)
@@ -42,9 +42,7 @@ const submitUserData = async () => {
     response = await editUser(userInfo.value)
   }
 
-  console.log(response.status)
-  
-  if (response.status in [201,204]) {
+  if ([200,201,204].includes(response.status)) {
     router.push({path: '/list-user'})
   } else {
     errorDetails.value.status = response.status
@@ -53,18 +51,6 @@ const submitUserData = async () => {
   }
   
 }
-
-// const editUserData = async () => {
-//   const response = await editUser(userInfo.value)
-//   if (response.status == 204) {
-//     router.push({path: '/list-user'})
-//   } else {
-//     errorDetails.value.status = response.status
-//     errorDetails.value.title= response.title
-//     errorDetails.value.errorList= response.errorList
-//   }
-  
-// }
 
 </script>
 
@@ -191,8 +177,8 @@ const submitUserData = async () => {
                       v-for="role in roles"
                     >
                     <VCheckbox
-                      v-model="userInfo.roleIds"
-                      :key="role.id" :value="role.id"
+                      v-model="userInfo.roles"
+                      :key="role.name" :value="role.name"
                       :label="role.name"
                     />
                     </VCol>
