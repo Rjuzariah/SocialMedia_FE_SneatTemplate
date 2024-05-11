@@ -69,9 +69,8 @@ const loginToSystem = async () => {
               <VTextField
                 v-model="form.email"
                 autofocus
-                placeholder="johndoe@email.com"
-                label="Email"
-                type="email"
+                placeholder=""
+                label="User Name"
               />
             </VCol>
 

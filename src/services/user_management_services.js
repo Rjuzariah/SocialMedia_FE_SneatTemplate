@@ -22,7 +22,7 @@ export async function getLoginUser() {
 }
 
 export async function createUser(data) {
-    const response = await axios.post('https://localhost:7277/api//Users', {
+    const response = await axios.post('https://localhost:7277/api/Users', {
         // Specify the data to be sent in the request body
         userName: data.userName,
         email: data.email,
