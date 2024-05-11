@@ -1,7 +1,6 @@
 <script setup>
-import AuthProvider from '@/views/pages/authentication/AuthProvider.vue'
-import logo from '@images/logo.svg?raw'
 import { login } from '@/services/authentication_services';
+import logo from '@images/logo.svg?raw';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
@@ -22,7 +21,7 @@ const isPasswordVisible = ref(false)
 const loginToSystem = async () => {
   const response = await login(form.value)
   if (response.status == 200) {
-    router.push({path: 'dashboard'})
+    router.push({path: '/'})
   } else {
     errorDetails.value.status = response.status
     errorDetails.value.title= response.title

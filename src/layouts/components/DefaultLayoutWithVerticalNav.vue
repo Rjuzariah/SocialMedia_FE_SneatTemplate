@@ -7,6 +7,10 @@ import VerticalNavLink from '@layouts/components/VerticalNavLink.vue'
 import Footer from '@/layouts/components/Footer.vue'
 import NavbarThemeSwitcher from '@/layouts/components/NavbarThemeSwitcher.vue'
 import UserProfile from '@/layouts/components/UserProfile.vue'
+import { socialMediaStore } from '@/store'
+
+const store = socialMediaStore();
+
 
 </script>
 
@@ -36,7 +40,7 @@ import UserProfile from '@/layouts/components/UserProfile.vue'
     </template>
 
     <template #vertical-nav-content>
-      <VerticalNavLink
+      <VerticalNavLink v-if="store.userLoginInfo.roles.includes('Admin')"
         :item="{
           title: 'Dashboard',
           icon: 'bx-home',
@@ -50,12 +54,12 @@ import UserProfile from '@/layouts/components/UserProfile.vue'
           to: '/post',
         }"
       />
-      <VerticalNavSectionTitle
+      <VerticalNavSectionTitle v-if="store.userLoginInfo.roles.includes('Admin')"
         :item="{
           heading: 'Manage User Info',
         }"
       />
-      <VerticalNavLink
+      <VerticalNavLink v-if="store.userLoginInfo.roles.includes('Admin')"
         :item="{
           title: 'Manage Users',
           icon: 'mdi-account-cog-outline',

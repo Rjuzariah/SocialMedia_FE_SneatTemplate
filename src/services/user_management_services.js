@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { socialMediaStore } from '../store.js';
 
 export async function getAllUsers() {
     const response = await axios.get('https://localhost:7277/api/Users');
@@ -10,9 +11,14 @@ export async function getUserbyId(user_id) {
     return response.data
 }
 
-export async function getLoginUser(user_id) {
-    const response = await axios.get('https://localhost:7277/api/Users/GetLoginUser/');
-    return response.data
+export async function getLoginUser() {
+    try {
+        const response = await axios.get('https://localhost:7277/api/Users/GetLoginUser/');
+        socialMediaStore().userLoginInfo = response.data
+    } catch (error) {
+        const errorMessage = socialMediaStore().constructError(error)
+        socialMediaStore().error = errorMessage
+    }
 }
 
 export async function createUser(data) {

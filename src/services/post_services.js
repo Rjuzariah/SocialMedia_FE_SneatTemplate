@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { socialMediaStore } from '../store.js';
+
 
 export async function getAllPost() {
     try {
@@ -31,20 +33,8 @@ export async function createPost(description) {
         });
         return response
     } catch (error) {
-        if (error.response) {
-            return {
-                'status': error.response.data.status,
-                'title': error.response.data.title,
-                'errorList': error.response.data.errors,
-            }
-          } else {
-            // Something happened in setting up the request that triggered an error
-            return {
-                'status': 0,
-                'title': "Authentication Fail",
-                'errorList': [],
-            }
-          }
+        const errorMessage = socialMediaStore().constructError(error)
+        socialMediaStore().error = errorMessage
     }
 }
 

@@ -10,22 +10,27 @@ const router = createRouter({
       children: [
         {
           path: 'dashboard',
+          name: 'Dashboard',
           component: () => import('../pages/dashboard.vue'),
         },
         {
           path: 'post',
+          name: 'Post',
           component: () => import('../pages/post.vue'),
         },
         {
           path: 'account-settings',
+          name: 'Account Settings',
           component: () => import('../pages/account-settings.vue'),
         },
         {
           path: 'list-user',
+          name: 'List User',
           component: () => import('../pages/list-user.vue'),
         },
         {
           path: 'create-user',
+          name: 'Create User',
           component: () => import('../pages/create-edit-user.vue'),
           props: {
             contextType:"create"
@@ -33,6 +38,7 @@ const router = createRouter({
         },
         {
           path: 'edit-user/:userId',
+          name: 'Edit User',
           component: () => import('../pages/create-edit-user.vue'),
           props: true,
         },
@@ -44,6 +50,7 @@ const router = createRouter({
       children: [
         {
           path: 'login',
+          name: 'Login',
           component: () => import('../pages/login.vue'),
         },
         {
