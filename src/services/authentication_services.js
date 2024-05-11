@@ -1,5 +1,6 @@
 import axios from 'axios';
 import TokenService from './token_services';
+// import { getLoginUser } from './user_management_services';
 
 
 class AuthenticationError extends Error {
@@ -40,14 +41,12 @@ export async function login(data) {
         password: data.password
       });
 
-      console.log('localStorage')
-      console.log(localStorage)
-      console.log(response)
-
       TokenService.saveRefreshTokenRotationPeriodInMilliseconds(response.data.expiresIn)
       TokenService.saveToken(response.data.accessToken)
       TokenService.saveRefreshToken(response.data.refreshToken)
       axios.defaults.headers.common.Authorization = `Bearer ${TokenService.getToken()}`
+
+      // getLoginUser()
       return response
     } catch (error) {
       const errorData = {

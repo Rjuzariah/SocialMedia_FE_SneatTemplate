@@ -45,3 +45,8 @@ export async function editUser(data) {
       });
     return response
 }
+
+export async function logout(data) {
+    const response = await axios.post('https://localhost:7277/api/Users/Logout');
+    return response
+}

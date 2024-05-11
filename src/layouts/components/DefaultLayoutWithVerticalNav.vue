@@ -40,7 +40,7 @@ const store = socialMediaStore();
     </template>
 
     <template #vertical-nav-content>
-      <VerticalNavLink v-if="store.userLoginInfo.roles.includes('Admin')"
+      <VerticalNavLink v-if="store.userLoginInfo.roles?.includes('Admin')"
         :item="{
           title: 'Dashboard',
           icon: 'bx-home',
@@ -54,12 +54,12 @@ const store = socialMediaStore();
           to: '/post',
         }"
       />
-      <VerticalNavSectionTitle v-if="store.userLoginInfo.roles.includes('Admin')"
+      <VerticalNavSectionTitle v-if="store.userLoginInfo.roles?.includes('Admin')"
         :item="{
           heading: 'Manage User Info',
         }"
       />
-      <VerticalNavLink v-if="store.userLoginInfo.roles.includes('Admin')"
+      <VerticalNavLink v-if="store.userLoginInfo.roles?.includes('Admin')"
         :item="{
           title: 'Manage Users',
           icon: 'mdi-account-cog-outline',

@@ -4,11 +4,10 @@ import { socialMediaStore } from '@/store';
 import { hexToRgb } from '@layouts/utils';
 import { useTheme } from 'vuetify';
 
-import { useRouter } from 'vue-router';
+
 
 const store = socialMediaStore();
 const { global } = useTheme()
-const router = useRouter();
 onMounted(async () => {
   await getLoginUser()
 });
@@ -18,7 +17,7 @@ onMounted(async () => {
 <template>
   <VApp :style="`--v-global-theme-primary: ${hexToRgb(global.current.value.colors.primary)}`">
     <RouterView />
-    <v-snackbar v-model="store.error.show" :timeout="store.error.timeout" :color="store.error.color" :location="top">
+    <v-snackbar v-model="store.error.show" :timeout="store.error.timeout" :color="store.error.color">
       <div v-if="store.error.title">
         {{ store.error.status }} {{ store.error.title }}
       </div>
@@ -26,6 +25,5 @@ onMounted(async () => {
         {{ detail.description }}
       </div>
     </v-snackbar>
-    <v-snackbars :messages.sync="store.error.status" :timeout="10000" bottom left color="red"></v-snackbars>
   </VApp>
 </template>
